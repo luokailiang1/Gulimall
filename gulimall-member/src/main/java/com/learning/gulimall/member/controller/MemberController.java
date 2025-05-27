@@ -3,12 +3,10 @@ package com.learning.gulimall.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.learning.gulimall.member.feign.CouponClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.learning.gulimall.member.entity.MemberEntity;
 import com.learning.gulimall.member.service.MemberService;
@@ -29,6 +27,9 @@ import com.learning.gulimall.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CouponClient couponClient;
 
     /**
      * 列表
@@ -79,6 +80,15 @@ public class MemberController {
 		memberService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    /**
+     * 获取会员信息
+     */
+    @GetMapping("/info/coupon")
+    public R getMemberInfoWithCoupon() {
+        R page = couponClient.couponList();
+        return R.ok().put("member", page);
     }
 
 }

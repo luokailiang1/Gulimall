@@ -1,11 +1,10 @@
-
 server:
   port: 8005
 spring:
   application:
     name: gulimall-ware
   config:
-    import: nacos:springclouddemo2023x.properties?group=GROUP
+    import: nacos:common-config?group=COMMON-GROUP
   datasource:
     username: root
     password: 258055

@@ -3,7 +3,9 @@ package com.learning.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.alibaba.cloud.nacos.annotation.NacosConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,14 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
+    @NacosConfig(dataId = "test",group = "dev-group", key = "test.name")
+    private String name;
+
+    @NacosConfig(dataId = "test",group = "dev-group", key = "test.age")
+    private String age;
+
+
+
     /**
      * 列表
      */
@@ -37,7 +47,7 @@ public class CouponController {
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = couponService.queryPage(params);
 
-        return R.ok().put("page", page);
+        return R.ok().put("name", name).put("age", age).put("page", page);
     }
 
 

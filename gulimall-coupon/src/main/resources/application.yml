@@ -1,13 +1,22 @@
 server:
   port: 8001
 spring:
+  application:
+    name: guimall-coupon
+  config:
+    import[0]: nacos:datasource.yml?group=dev-group
+    import[1]: nacos:mybatis.yml?group=dev-group
+    import[2]: nacos:test?group=dev-group
+  nacos:
+    server-addr: 127.0.0.1:8848
   datasource:
-    username: root
-    password: 258055
     url: jdbc:mysql://192.168.0.99/gulimall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
-mybatis-plus:
-  mapper-locations: classpath:/mapper/**/*.xml
-  global-config:
-    db-config:
-      id-type: auto
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
+      discovery:
+        server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
