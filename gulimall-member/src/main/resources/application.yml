@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: gulimall-member
+      name: gulimall-member
   config:
     import: nacos:common-config?group=COMMON-GROUP
   datasource:
@@ -14,8 +14,10 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
       discovery:
         server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
       username: nacos
       password: nacos
 mybatis-plus:

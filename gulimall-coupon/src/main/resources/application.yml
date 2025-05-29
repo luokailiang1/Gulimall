@@ -1,8 +1,10 @@
 server:
   port: 8001
+  servlet:
+   contextPath: /gulimall-coupon
 spring:
   application:
-    name: guimall-coupon
+      name: guimall-coupon
   config:
     import[0]: nacos:datasource.yml?group=dev-group
     import[1]: nacos:mybatis.yml?group=dev-group
@@ -18,5 +20,6 @@ spring:
         namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
       discovery:
         server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
       username: nacos
       password: nacos

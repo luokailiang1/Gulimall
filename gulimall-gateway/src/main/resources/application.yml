@@ -1,0 +1,39 @@
+server:
+  port: 8000
+spring:
+  application:
+      name: guimall-gateway
+  config:
+    import[0]: nacos:test?group=dev-group
+  nacos:
+    server-addr: 127.0.0.1:8848
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 7583d6a2-3c98-4b15-9afe-71ffbedb3c3f
+      username: nacos
+      password: nacos
+    gateway:
+      routes:
+      - id: guimall-coupon
+        uri: lb://guimall-coupon
+        predicates:
+        - Path=/gulimall-coupon/**
+        filters:
+        - StripPrefix=1
+      - id: guimall-member
+        uri: lb://guimall-member
+        predicates:
+          - Path=/gulimall-member/**
+        filters:
+          - StripPrefix=1
+      - id: guimall-order
+        uri: lb://guimall-order
+        predicates:
+          - Path=/gulimall-order/**
+        filters:
+          - StripPrefix=1
