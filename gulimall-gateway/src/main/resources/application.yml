@@ -4,7 +4,8 @@ spring:
   application:
       name: guimall-gateway
   config:
-    import[0]: nacos:test?group=dev-group
+    import[0]: nacos:datasource.yml?group=dev-group
+    import[1]: nacos:mybatis.yml?group=dev-group
   nacos:
     server-addr: 127.0.0.1:8848
   cloud:
@@ -19,6 +20,19 @@ spring:
       password: nacos
     gateway:
       routes:
+      - id: guilimall-product
+        uri: lb://gulimall-product
+        predicates:
+        - Path=/api/product/**
+        filters:
+        - StripPrefix=1
+
+      - id: renren-fast
+        uri: lb://renren-fast
+        predicates:
+        - Path=/api/**
+        filters:
+        - StripPrefix=1
       - id: guimall-coupon
         uri: lb://guimall-coupon
         predicates:

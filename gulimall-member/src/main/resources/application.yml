@@ -1,10 +1,13 @@
 server:
   port: 8002
+  servlet:
+    context-path: /gulimall-member
 spring:
   application:
       name: gulimall-member
   config:
-    import: nacos:common-config?group=COMMON-GROUP
+    import[0]: nacos:datasource.yml?group=dev-group
+    import[1]: nacos:mybatis.yml?group=dev-group
   datasource:
     username: root
     password: 258055

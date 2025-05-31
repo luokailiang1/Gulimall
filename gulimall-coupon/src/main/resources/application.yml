@@ -8,7 +8,6 @@ spring:
   config:
     import[0]: nacos:datasource.yml?group=dev-group
     import[1]: nacos:mybatis.yml?group=dev-group
-    import[2]: nacos:test?group=dev-group
   nacos:
     server-addr: 127.0.0.1:8848
   datasource:

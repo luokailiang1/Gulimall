@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -51,6 +52,29 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         // 排序
         children.sort(Comparator.comparing(CategoryEntity::getSort, Comparator.nullsLast(Integer::compareTo)));
         return children;
+    }
+
+    @Override
+    public void deleteByIds(List<Long> idList) {
+        //TODO: 后续是否需要enhance
+
+        // 1. 检查是否有子分类
+        List<CategoryEntity> entities = baseMapper.selectBatchIds(idList);
+        if (entities != null && entities.size() > 0) {}
+        List<Long> childIds = entities.stream()
+                .flatMap(entity -> entity.getChildren() == null || entity.getChildren().isEmpty()
+                        ? Stream.empty()
+                        : entity.getChildren().stream())
+                .map(CategoryEntity::getCatId)
+                .collect(Collectors.toList());
+
+        // 2. 删除子分类
+        if (!childIds.isEmpty()) {
+            baseMapper.deleteBatchIds(childIds);
+        }
+
+        // 3. 删除父分类
+        baseMapper.deleteBatchIds(idList);
     }
 
 }
