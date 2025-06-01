@@ -1,5 +1,6 @@
 package com.learning.gulimall.product.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import com.learning.gulimall.product.dao.CategoryDao;
 import com.learning.gulimall.product.entity.CategoryEntity;
 import com.learning.gulimall.product.service.CategoryService;
 
-
+@Slf4j
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
@@ -68,13 +69,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .map(CategoryEntity::getCatId)
                 .collect(Collectors.toList());
 
-        // 2. 删除子分类
-        if (!childIds.isEmpty()) {
-            baseMapper.deleteBatchIds(childIds);
-        }
+        try {
+            // 2. 删除子分类
+            if (!childIds.isEmpty()) {
+                baseMapper.deleteBatchIds(childIds);
+            }
+            log.info("删除子分类成功，删除的分类ID列表: {}", childIds);
 
-        // 3. 删除父分类
-        baseMapper.deleteBatchIds(idList);
+            // 3. 删除父分类
+            baseMapper.deleteBatchIds(idList);
+            log.info("删除父分类成功，删除的分类ID列表: {}", idList);
+        } catch (Exception e) {
+            // 4. 如果删除失败，抛出异常
+            log.error("删除分类失败，请检查是否有相关商品或其他依赖。");
+        }
     }
 
 }
