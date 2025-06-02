@@ -2,7 +2,7 @@ server:
   port: 8000
 spring:
   application:
-      name: guimall-gateway
+      name: gulimall-gateway
   config:
     import[0]: nacos:datasource.yml?group=dev-group
     import[1]: nacos:mybatis.yml?group=dev-group
@@ -26,6 +26,13 @@ spring:
         - Path=/api/product/**
         filters:
         - StripPrefix=1
+
+      - id: gulimall-third-party
+        uri: lb://gulimall-third-party
+        predicates:
+          - Path=/api/thirdparty/**
+        filters:
+          - StripPrefix=1
 
       - id: renren-fast
         uri: lb://renren-fast
