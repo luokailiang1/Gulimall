@@ -13,5 +13,12 @@
         <result property="catelogId" column="catelog_id"/>
     </resultMap>
 
+    <select id="findByGroupIds" resultType="com.learning.gulimall.product.entity.AttrGroupEntity">
+        SELECT * FROM pms_attr_group
+        WHERE attr_group_id IN
+        <foreach collection="collection" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>

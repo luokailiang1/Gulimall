@@ -29,7 +29,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
-	@NotNull(message = "品牌ID不能为空", groups = {UpdateGroup.class})
+	@NotNull(message = "品牌ID不能为空", groups = {UpdateGroup.class, UpdateStatusGroup.class})
 	@Null(message = "品牌ID必须为空", groups = {AddGroup.class})
 	@TableId
 	private Long brandId;

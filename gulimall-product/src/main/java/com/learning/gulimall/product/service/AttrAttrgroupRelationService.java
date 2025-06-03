@@ -3,7 +3,9 @@ package com.learning.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.learning.gulimall.common.utils.PageUtils;
 import com.learning.gulimall.product.entity.AttrAttrgroupRelationEntity;
+import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
 import java.util.Map;
 
 /**

@@ -16,5 +16,12 @@
         <result property="productCount" column="product_count"/>
     </resultMap>
 
+    <select id="findByCatIds" resultType="com.learning.gulimall.product.entity.CategoryEntity">
+        SELECT * FROM pms_category
+        WHERE cat_id IN
+        <foreach collection="collection" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>

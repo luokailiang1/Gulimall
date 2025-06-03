@@ -17,5 +17,12 @@
         <result property="showDesc" column="show_desc"/>
     </resultMap>
 
+    <select id="findByAttrIds" resultType="com.learning.gulimall.product.entity.AttrEntity">
+        SELECT * FROM pms_attr
+        WHERE attr_id IN
+        <foreach collection="collection" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>

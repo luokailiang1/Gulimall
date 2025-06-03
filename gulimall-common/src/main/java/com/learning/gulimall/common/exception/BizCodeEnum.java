@@ -5,8 +5,8 @@ public enum BizCodeEnum {
     VALID_EXCEPTION(10001, "参数格式校验失败");
 
 
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 
     BizCodeEnum(int code, String msg) {
         this.code = code;
